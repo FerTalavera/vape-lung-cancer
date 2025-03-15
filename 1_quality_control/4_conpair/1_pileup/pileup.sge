@@ -54,7 +54,7 @@ bam_files=(
 )
 
 # Output directory
-output_dir=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/4_conpair/pileup
+output_dir=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/4_conpair/1_pileup
 
 # Process each BAM file
 for bam_file in "${bam_files[@]}"; do
