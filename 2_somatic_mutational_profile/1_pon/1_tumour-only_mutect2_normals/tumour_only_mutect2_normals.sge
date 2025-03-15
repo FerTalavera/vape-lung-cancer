@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N mutect2_tumor_only
+#
+# Send an email after the job has finished
+#$ -m bes
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=30G
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load gcc/5.1.0
+module load gatk/4.2.3.0
+module load parallel
+
+# Define reference and other fixed paths
+reference="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa"
+intervals="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/Allexon_v2_Covered_corrected.bed"
+input_dir="/mnt/Adenina/drobles/data/smoking_mice/PDexport"
+output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/1_pon"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# List of sample identifiers
+samples=("MD6752c" "MD6753c" "MD6754c" "MD6755c" "MD6756c" "MD6757b" "MD6758c" "MD6760c") # Add more sample identifiers as needed
+
+# Define a function to process each sample
+run_mutect2() {
+    local sample="$1"
+    local input_bam="$input_dir/2499_${sample}/mapped_sample/MOUSE_GRCm38_pulldown_${sample}.dupmarked.bam"
+    local output_vcf="$output_dir/${sample}_tonly.vcf.gz"
+
+    # Check if the input BAM file exists
+    if [[ ! -f "$input_bam" ]]; then
+        echo "ERROR: Input BAM file $input_bam cannot be found."
+        return 1
+    fi
+
+    # Run GATK Mutect2 for the sample
+    gatk Mutect2 \
+        -R "$reference" \
+        -L "$intervals" \
+        -I "$input_bam" \
+        --max-mnp-distance 0 \
+        -O "$output_vcf"
+
+    # Check if the output VCF was successfully created
+    if [[ $? -ne 0 ]]; then
+        echo "ERROR: GATK Mutect2 failed for sample $sample."
+    else
+        echo "Successfully processed sample $sample."
+    fi
+}
+
+# Export variables and functions to be used by parallel
+export -f run_mutect2
+export reference
+export intervals
+export input_dir
+export output_dir
+
+# Run in parallel
+parallel run_mutect2 ::: "${samples[@]}"
