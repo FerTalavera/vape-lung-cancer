@@ -28,5 +28,5 @@ module load gatk/4.2.3.0
 # Write your commands in the next line:
 gatk CreateSomaticPanelOfNormals \
     -R /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa \
-    -V gendb:///mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_profile/1_pon/GenomicDB \
-    -O /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_profile/1_pon/allnormals_pon.vcf.gz
+    -V gendb:///mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/1_pon/GenomicDB \
+    -O /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/1_pon/allnormals_pon.vcf.gz
