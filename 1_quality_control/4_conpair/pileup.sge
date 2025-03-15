@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N conpair_pileup
+#
+# Send an email after the job has finished
+#$ -m e
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=20G
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load gcc/5.1.0
+module load conpair/0.2
+module load gatk/3.3.0
+#
+# Define the reference and markers
+reference=/mnt/atgc-d1/drobles/ftalavera/vaping_lung_cancer/somatic_profile/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa
+markers=/cm/shared/apps/conpair/0.2/data/markers/SureSelect_Mouse_All_Exon_V1_GRCm38_markers_MAF_0.4_LD_0.8.bed
+
+# List of BAM files to process
+bam_files=(
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6752b/mapped_sample/MOUSE_GRCm38_pulldown_MD6752b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6752c/mapped_sample/MOUSE_GRCm38_pulldown_MD6752c.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6753a/mapped_sample/MOUSE_GRCm38_pulldown_MD6753a.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6753b/mapped_sample/MOUSE_GRCm38_pulldown_MD6753b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6753c/mapped_sample/MOUSE_GRCm38_pulldown_MD6753c.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6754a/mapped_sample/MOUSE_GRCm38_pulldown_MD6754a.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6754b/mapped_sample/MOUSE_GRCm38_pulldown_MD6754b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6754c/mapped_sample/MOUSE_GRCm38_pulldown_MD6754c.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6755a/mapped_sample/MOUSE_GRCm38_pulldown_MD6755a.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6755b/mapped_sample/MOUSE_GRCm38_pulldown_MD6755b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6755c/mapped_sample/MOUSE_GRCm38_pulldown_MD6755c.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6756a/mapped_sample/MOUSE_GRCm38_pulldown_MD6756a.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6756b/mapped_sample/MOUSE_GRCm38_pulldown_MD6756b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6756c/mapped_sample/MOUSE_GRCm38_pulldown_MD6756c.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6757b/mapped_sample/MOUSE_GRCm38_pulldown_MD6757b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6758a/mapped_sample/MOUSE_GRCm38_pulldown_MD6758a.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6758b/mapped_sample/MOUSE_GRCm38_pulldown_MD6758b.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6758c/mapped_sample/MOUSE_GRCm38_pulldown_MD6758c.dupmarked.bam
+    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6760c/mapped_sample/MOUSE_GRCm38_pulldown_MD6760c.dupmarked.bam
+)
+
+# Output directory
+output_dir=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/4_conpair/pileup
+
+# Process each BAM file
+for bam_file in "${bam_files[@]}"; do
+    # Extract the base name of the file for output naming
+    base_name=$(basename "$bam_file" .dupmarked.bam)
+    # Run the pileup command and save the output
+    run_gatk_pileup_for_sample.py --reference "$reference" --markers "$markers" -B "$bam_file" -O "$output_dir/${base_name}_pileup.txt"
+done
