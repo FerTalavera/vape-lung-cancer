@@ -26,8 +26,8 @@ module load gatk/4.2.3.0
 module load parallel
 
 # Define reference and other fixed paths
-reference="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_profile/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa"
-intervals="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_profile/reference/Allexon_v2_Covered_corrected.bed"
+reference="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa"
+intervals="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/Allexon_v2_Covered_corrected.bed"
 input_dir="/mnt/Adenina/drobles/data/smoking_mice/PDexport"
 output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_profile/1_pon"
 
