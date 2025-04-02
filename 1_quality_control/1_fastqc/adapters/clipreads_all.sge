@@ -1,0 +1,71 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N clipreads_all
+#
+# Send an email after the job has finished
+#$ -m bes
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=30G
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load gcc/5.1.0
+module load gatk/4.2.3.0
+module load parallel
+
+# Define reference and other fixed paths
+input_dir="/mnt/Adenina/drobles/data/smoking_mice/PDexport"
+output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# List of sample identifiers
+samples=("MD6752b" "MD6754b" "MD6754a" "MD6753b" "MD6753a" "MD6755b" "MD6755a" "MD6756b" "MD6756a" "MD6758b" "MD6758a") # Add more sample identifiers as needed
+
+# Define a function to process each sample
+run_clipreads() {
+    local sample="$1"
+    local input_bam="$input_dir/2499_${sample}/mapped_sample/MOUSE_GRCm38_pulldown_${sample}.dupmarked.bam"
+    local output_bam="$output_dir/${sample}_clip.bam"
+
+    # Check if the input BAM file exists
+    if [[ ! -f "$input_bam" ]]; then
+        echo "ERROR: Input BAM file $input_bam cannot be found."
+        return 1
+    fi
+
+    # Run GATK for the sample
+    gatk ClipReads \
+      -I "$input_bam" \
+      -O "$output_bam" \
+      -XF BBDuk-Adapters.fa \
+      -QT 10
+
+    # Check if the output VCF was successfully created
+    if [[ $? -ne 0 ]]; then
+        echo "ERROR: GATK failed for sample $sample."
+    else
+        echo "Successfully processed sample $sample."
+    fi
+}
+
+# Export variables and functions to be used by parallel
+export -f run_clipreads
+export input_dir
+export output_dir
+
+# Run in parallel
+parallel run_clipreads ::: "${samples[@]}"
