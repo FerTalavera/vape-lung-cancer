@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N fastqc_all
+#
+# Send an email after the job has finished
+#$ -m e
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=20G
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load gcc/5.1.0
+module load fastqc/0.11.3
+#
+# Define the output directory
+output_dir=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/fastqc
+
+# List of BAM files to process
+bam_files=(
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6752b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6753a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6753b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6754a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6754b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6755a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6755b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6756a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6756b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6758a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6758b_clip.bam
+)
+
+# Process each BAM file
+for bam_file in "${bam_files[@]}"; do
+    fastqc --outdir "$output_dir" -f bam "$bam_file"
+done
