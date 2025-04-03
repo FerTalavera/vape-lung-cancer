@@ -26,24 +26,16 @@ module load samtools/1.9
 # List of stats files to process
 stats_files=(
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6752b.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6752c.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753a.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753b.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753c.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754a.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754b.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754c.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755a.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755b.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755c.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756a.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756b.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756c.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6757b.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758a.stats
     /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758b.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758c.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6760c.stats
 )
 
 # Process each stats file
