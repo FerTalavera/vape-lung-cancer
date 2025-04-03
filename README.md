@@ -16,7 +16,9 @@
       
       sed 's/chr//g' Allexon_v2_Covered.bed > Allexon_v2_Covered_corrected.bed
 
-      3. 
+      3. To create the GenomicDB we need to prepare a file containing a mapping of sample name to file uri in tab delimited format (tab_batch.sample_map).
+      4. Create the GenomicDB.
+      5. Create the Panel of Normals
       
 
 ## 3. Copy number profile
