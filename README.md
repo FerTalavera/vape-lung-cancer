@@ -12,6 +12,12 @@
 
 ## 2. Somatic mutational profile
       1. First we get the germline variants from the normal samples using the tumor/only mode of GATK Mutect2.
+      2. Then we got the bait coordinate file from Agilent (S32371113_Covered.bed) but in the bed the chromosomes were label as “chr1” and in the reference they were label as “1”, to fix this we remove the “chr” in the bed.
+      
+      sed 's/chr//g' Allexon_v2_Covered.bed > Allexon_v2_Covered_corrected.bed
+
+      3. 
+      
 
 ## 3. Copy number profile
 
