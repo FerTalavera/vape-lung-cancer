@@ -28,7 +28,7 @@ module load gatk/4.2.3.0
 # Write your commands in the next line:
 gatk GenomicsDBImport \
     -R /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa \
-    -L /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/reference/Allexon_v2_Covered_corrected.bed \
+    -L /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered_corrected.bed \
     --merge-input-intervals true \
     --batch-size 8 \
     --genomicsdb-workspace-path /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/1_pon/GenomicDB/ \
