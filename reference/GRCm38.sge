@@ -22,8 +22,11 @@
 . /etc/profile.d/modules.sh
 #
 # Add any modules you might require:
+module load samtools/1.9
 #
 # Write your commands in the next line:
+samtools view -H MOUSE_GRCm38_pulldown_MD6753a.dupmarked.bam | grep @SQ
+
 wget -c ftp://ftp.ensembl.org/pub/release-68/fasta/mus_musculus/dna/Mus_musculus.GRCm38.68.dna.toplevel.fa.gz
 gunzip Mus_musculus.GRCm38.68.dna.toplevel.fa.gz
 
