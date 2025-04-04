@@ -28,7 +28,7 @@ module load parallel
 #
 # Write your commands in the next line:
 # Define reference and other fixed paths
-vcf="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/germline/FVB_NJ_snps_indels_combined.vcf.gz"
+vcf="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/germline/FVB_NJ_snps_indels_combined_AF.vcf.gz"
 interval="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered_corrected.bed"
 input_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data"
 output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/4_calculate_contamination/tumour"
