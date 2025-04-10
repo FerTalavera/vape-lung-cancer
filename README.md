@@ -21,7 +21,18 @@ sed 's/chr//g' Allexon_v2_Covered.bed > Allexon_v2_Covered_corrected.bed
 3. To create the GenomicDB we need to prepare a file containing a mapping of sample name to file uri in tab delimited format (tab_batch.sample_map).
 4. Create the GenomicDB.
 5. Create the Panel of Normals
-      
+6. Perform the variant calling with mutect2 using a --min-base-quality-score of 30.
+7. To filter the variants we first run the LearnReadOrientationModel function of GATK which gets the maximum likelihood estimates of artifact prior probabilities in the orientation bias mixture model.
+8. Then we download the germline variants of the FVBNJ mice strain to filter this germline variants from our vcf files (FVB_NJ_snps_indels_combined.vcf.gz). We needed to add the population allele frequencies (AF) in the INFO field because this VCF did not have it (FVB_NJ_snps_indels_combined_AF.vcf.gz) and index it.
+9. Now we get the pileup summaries which tabulates pileup metrics for inferring contamination.
+10. After that we calculate the fraction of reads coming from cross-sample contamination with the CalculateContamination function.
+11. We filter the calls with the function FilterMutectCalls using the metrics previously calculated and filter the variants that pass the filtering step.
+
+```bash
+bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered_mutect2_passed.vcf
+```
+
+12. Finally, we use SelectVariants to filter out all indels >10 bp.
 
 ## 3. Copy number profile
 
