@@ -6,7 +6,7 @@
 3. Then as we had bam files we clip this sequences so that the tools we use later doesn't take them into account.
 4. Perform fastqc & multiqc after clipping the sequences and there is no warning in adapters anymore but the N content at the end of the sequences got a warning.
 5. Retrieve samtools stats and plots.
-6. Got the reference used for the alignment (ftp://ftp.ensembl.org/pub/release-68/fasta/mus_musculus/dna/Mus_musculus.GRCm38.68.dna.toplevel.fa.gz).
+6. Got the reference used for the alignment (Mus_musculus.GRCm38.68.dna.toplevel.fa.gz).
 7. Then we generate a .dict file and a .fai file for fasta reference.
 8. Calculate contamination and concordance with conpair.
 
