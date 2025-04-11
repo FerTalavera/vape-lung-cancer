@@ -32,11 +32,12 @@ sed 's/chr//g' Allexon_v2_Covered.bed > Allexon_v2_Covered_corrected.bed
 bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered_mutect2_passed.vcf
 ```
 
-12. Moreover, to decrease the false-positive rate of reported mutations, we use SelectVariants to filter out all indels >10 bp. We apply filters for mutant allele frequency (>=10%), coverage (>=10x) and supporting reads for the mutation in the tumour sample (at least three, and at least one in each strand to avoid strand bias).
+12. Moreover, to decrease the false-positive rate of reported mutations, we use SelectVariants to filter out all indels >10 bp. We apply filters for coverage (>=10x) and supporting reads for the mutation in the tumour sample (at least three, and at least one in each strand to avoid strand bias).
 
 ```bash
 
 ```
+13. To identify driver genes for mutant allele frequency (>=10%)
 
 ## 3. Copy number profile
 
