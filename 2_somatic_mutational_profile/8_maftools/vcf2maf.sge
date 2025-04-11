@@ -32,6 +32,7 @@ module load parallel
 reference="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/GRCm38/Mus_musculus.GRCm38.68.dna.toplevel.fa"
 input_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/6_annotation/tumour"
 output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/8_maftools"
+vep_data_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/6_annotation/vep_caches"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_dir"
