@@ -3,13 +3,13 @@
 use strict;
 use warnings;
 
-my $root = "/mnt/atgc-d1/drobles/ftalavera/vaping_lung_cancer/somatic_profile/variant_calling/tumour/annotation/";
+my $root = "/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/6_annotation/tumour";
 my %files = ( 
-	'MD6753a' => "$root/MD6753a_filtered_mutect2_PASS_selected_vep.vcf",
-	'MD6754a' => "$root/MD6754a_filtered_mutect2_PASS_selected_vep.vcf",
-	'MD6755a' => "$root/MD6755a_filtered_mutect2_PASS_selected_vep.vcf",
-	'MD6756a' => "$root/MD6756a_filtered_mutect2_PASS_selected_vep.vcf",
-	'MD6758a' => "$root/MD6758a_filtered_mutect2_PASS_selected_vep.vcf" );
+	'MD6753a' => "$root/MD6753a_filtered_bcftools_vep.vcf",
+	'MD6754a' => "$root/MD6754a_filtered_bcftools_vep.vcf",
+	'MD6755a' => "$root/MD6755a_filtered_bcftools_vep.vcf",
+	'MD6756a' => "$root/MD6756a_filtered_bcftools_vep.vcf",
+	'MD6758a' => "$root/MD6758a_filtered_bcftools_vep.vcf");
 
 my %mutations;
 my @csqs_to_keep = ( 'missense', 'frameshift', 'stop', 'splice' );
