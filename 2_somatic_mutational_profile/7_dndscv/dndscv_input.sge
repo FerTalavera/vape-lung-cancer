@@ -29,7 +29,7 @@ module load parallel
 # Write your commands in the next line:
 # Define reference and other fixed paths
 input_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/6_annotation/tumour"
-output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/7_dndscv/tumour"
+output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/7_dndscv"
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_dir"
