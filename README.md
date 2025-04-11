@@ -35,9 +35,14 @@ bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered
 12. Moreover, to decrease the false-positive rate of reported mutations, we use SelectVariants to filter out all indels >10 bp. We apply filters for coverage (>=10x) and supporting reads for the mutation in the tumour sample (at least three, and at least one in each strand to avoid strand bias).
 
 ```bash
+bcftools filter -i '(FORMAT/AD[0:0] + FORMAT/AD[0:1]) >= 10 && (FORMAT/AD[1:0] + FORMAT/AD[1:1]) >= 10 && FORMAT/AD[0:1] >= 3 && FORMAT/AD[1:1] = 0 && FORMAT/SB[0:2] >= 1 && FORMAT/SB[0:3] >= 1' MD6753a_filtered_mutect2_pass_selected.vcf -Oz -o MD6753a_filtered_bcftools.vcf
 
 ```
 13. To identify driver genes for mutant allele frequency (>=10%)
+
+```bash
+bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_mutect2_pass_selected.vcf
+```
 
 ## 3. Copy number profile
 
