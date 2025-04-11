@@ -36,9 +36,11 @@ bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered
 
 ```bash
 bcftools filter -i '(FORMAT/AD[0:0] + FORMAT/AD[0:1]) >= 10 && (FORMAT/AD[1:0] + FORMAT/AD[1:1]) >= 10 && FORMAT/AD[0:1] >= 3 && FORMAT/AD[1:1] = 0 && FORMAT/SB[0:2] >= 1 && FORMAT/SB[0:3] >= 1' MD6753a_filtered_mutect2_pass_selected.vcf -Oz -o MD6753a_filtered_bcftools.vcf
-
 ```
-13. To identify driver genes for mutant allele frequency (>=10%)
+13. Then we download the VEP cache of our reference genome (GRCm38) a downloadable file containing all transcript models, regulatory features and variant data for a species and annotate our variants using Ensembl VEP.
+14. Now, to identify the driver genes first we get the recurrently mutated genes.
+15. Next, we use dndscv to identify the genes that are under positive selection.
+16. To identify driver genes not identified by dndscv due to the low sample size we filter the variants for mutant allele frequency (>=10%).
 
 ```bash
 bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_mutect2_pass_selected.vcf
