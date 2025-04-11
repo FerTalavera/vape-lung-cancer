@@ -1,0 +1,74 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N dndscv_input
+#
+# Send an email after the job has finished
+#$ -m bes
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=50G
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load bcftools
+module load htslib
+module load parallel
+#
+# Write your commands in the next line:
+# Define reference and other fixed paths
+input_dir="/mnt/atgc-d1/drobles/ftalavera/vaping_lung_cancer/somatic_profile/variant_calling/tumour/annotation"
+output_dir="/mnt/atgc-d1/drobles/ftalavera/vaping_lung_cancer/somatic_profile/variant_calling/tumour/dndscv"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# List of sample identifiers
+samples=("MD6753a" "MD6754a" "MD6755a" "MD6756a" "MD6758a") 
+
+# Define a function to process each sample
+run_dndscv() {
+    local sample="$1"
+    local input="$input_dir/${sample}_filtered_mutect2_PASS_selected_vep.vcf"
+    local output="$output_dir/${sample}_filtered_mutect2_PASS_selected_vep_id.vcf"
+
+    # Check if the input BAM file exists
+    if [[ ! -f "$input" ]]; then
+        echo "ERROR: Input file $input cannot be found."
+        return 1
+    fi
+
+    # Run dndscv for the sample
+    bcftools annotate --set-id ${sample} "$input" -o "$output"
+    bgzip "$output"
+    tabix -p vcf ${sample}_filtered_mutect2_PASS_selected_vep_id.vcf.gz
+    bcftools query -f '%ID\t%CHROM\t%POS\t%REF\t%ALT\t\n' ${sample}_filtered_mutect2_PASS_selected_vep_id.vcf.gz > ${sample}.txt
+    
+    # Check if the output was successfully created
+    if [[ $? -ne 0 ]]; then
+        echo "ERROR: failed for sample $sample."
+    else
+        echo "Successfully processed sample $sample."
+    fi
+}
+
+# Export variables and functions to be used by parallel
+export -f run_dndscv
+export input_dir
+export output_dir
+
+# Run in parallel
+parallel run_dndscv ::: "${samples[@]}"
+
+cat MD6753a.txt MD6754a.txt MD6755a.txt MD6756a.txt MD6758a.txt > dndscv_input.txt
