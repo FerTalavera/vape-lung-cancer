@@ -15,7 +15,7 @@
 # Send an email after the job has finished
 #$ -m bes
 #$ -M fer_talavera@comunidad.unam.mx
-#$ -l vf=50G
+#$ -l vf=10G
 #
 #
 # If modules are needed, source modules environment (Do not delete the next line):
