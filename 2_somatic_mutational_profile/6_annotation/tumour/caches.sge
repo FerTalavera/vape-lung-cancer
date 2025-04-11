@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N cache
+#
+# Send an email after the job has finished
+#$ -m bes
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=50G
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+#
+# Write your commands in the next line:
+curl -O https://ftp.ensembl.org/pub/release-99/variation/indexed_vep_cache/mus_musculus_vep_99_GRCm38.tar.gz
+tar -zxvf mus_musculus_vep_99_GRCm38.tar.gz
