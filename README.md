@@ -45,6 +45,16 @@ bcftools filter -i '(FORMAT/AD[0:0] + FORMAT/AD[0:1]) >= 10 && (FORMAT/AD[1:0] +
 ```bash
 bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_mutect2_pass_selected.vcf
 ```
+17. We make an oncoplot with the top 15 genes identified by dndscv.
+18. Then to see the location of recurrent mutations we make some lollipop plots
+
+```bash
+/Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Braf.png -legend -labels -dpi=300 -U P28028 V637E V584E
+
+/Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Kras.png -legend -labels -dpi=300 -U P32883 Q61R Q61H G12D
+
+/Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Rreb1.png -legend -labels -dpi=300 -U Q3UH06 G1163V A1374V
+```
 
 ## 3. Copy number profile
 
