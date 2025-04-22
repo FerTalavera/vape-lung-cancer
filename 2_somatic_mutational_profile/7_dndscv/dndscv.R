@@ -1,18 +1,18 @@
 library("dndscv")
-library(DT)
+library("DT")
 
-mutations <- read.table("somatic_profile/dndscv_input.txt", sep = "\t")
+mutations <- read.table("/Users/fernandatalavera/Desktop/BSc_thesis/results/2_somatic_mutational_profile/dndscv/dndscv_input.txt", sep = "\t")
 names(mutations) <- c("sampleID", "chr", "pos", "ref", "mut")
 mutations <- mutations[, -6]
 
-load("../RefCDS_mouse_GRCm38.p2.rda")
+load("/Users/fernandatalavera/Desktop/BSc_thesis/results/2_somatic_mutational_profile/dndscv/RefCDS_mouse_GRCm38.p2.rda")
 
-dndsout = dndscv(mutations, refdb = "../RefCDS_mouse_GRCm38.p2.rda")
+dndsout = dndscv(mutations, refdb = "/Users/fernandatalavera/Desktop/BSc_thesis/results/2_somatic_mutational_profile/dndscv/RefCDS_mouse_GRCm38.p2.rda")
 
 # Table of significant genes
 sel_cv = dndsout$sel_cv
 
-datatable(sel_cv[1:20,]) 
+datatable(sel_cv[1:15,]) 
 
 signif_genes = sel_cv[sel_cv$qglobal_cv<0.1, c("gene_name","qallsubs_cv")]
 rownames(signif_genes) = NULL
