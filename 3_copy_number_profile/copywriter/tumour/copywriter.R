@@ -13,11 +13,11 @@ for (name in names) {
                                controls = c(normal_bam, normal_bam),
                                stringsAsFactors = FALSE)
 
-  dest_folder <- file.path("/mnt/atgc-d1/drobles/ftalavera/copywriter/results", name)
+  dest_folder <- file.path("/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/results", name)
 
   CopywriteR(sample.control = sample.control,
              destination.folder = dest_folder,
-             reference.folder = file.path("/mnt/atgc-d1/drobles/ftalavera/copywriter/precopywriter", "mm10_20kb"),
+             reference.folder = file.path("/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/precopywriter", "mm10_20kb"),
              capture.regions.file = file.path("/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered_corrected.bed"),
              bp.param = bp.param)
 
