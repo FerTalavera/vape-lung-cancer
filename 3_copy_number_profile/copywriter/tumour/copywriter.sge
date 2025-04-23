@@ -12,6 +12,6 @@ sample.control = data.frame(samples=c(normal_bam,tumor_bam),controls=c(normal_ba
 CopywriteR(sample.control = sample.control,
              destination.folder = file.path(paste("/mnt/atgc-d1/drobles/ftalavera/copywriter/results/",name, sep="")),
              reference.folder = file.path("/mnt/atgc-d1/drobles/ftalavera/copywriter/precopywriter", "mm10_20kb"),
-             capture.regions.file = file.path("/mnt/Adenina/drobles/mtalavera/mutect2/Allexon_v2_Covered_corrected.bed"), bp.param = bp.param)
+             capture.regions.file = file.path("/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered_corrected.bed"), bp.param = bp.param)
 
 plotCNA(destination.folder = file.path(paste("/mnt/atgc-d1/drobles/ftalavera/copywriter/results/",name, sep="")))
