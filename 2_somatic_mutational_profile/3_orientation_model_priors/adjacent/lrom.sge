@@ -35,7 +35,7 @@ output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational
 mkdir -p "$output_dir"
 
 # List of sample identifiers
-samples=("MD6753b" "MD6754b" "MD6755b" "MD6756b" "MD6758b") 
+samples=("MD6752b" "MD6753b" "MD6754b" "MD6755b" "MD6756b" "MD6758b") 
 
 # Define a function to process each sample
 run_lrom() {
