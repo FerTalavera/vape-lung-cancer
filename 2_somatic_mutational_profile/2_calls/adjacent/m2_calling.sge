@@ -1,0 +1,99 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N m2_calling
+#
+# Send an email after the job has finished
+#$ -m bes
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=30G
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load gcc/5.1.0
+module load gatk/4.2.3.0
+module load parallel
+
+# Define reference and other fixed paths
+reference="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/GRCm38/Mus_musculus.GRCm38.68.dna.toplevel.fa"
+intervals="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered_corrected.bed"
+input_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data"
+output_dir="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/2_calls/adjacent"
+pon_file="/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/1_pon/allnormals_pon.vcf.gz"
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# Array of tumor and normal sample pairs
+samples=(
+    "MD6753b:MD6753c"
+    "MD6754b:MD6754c"
+    "MD6755b:MD6755c"
+    "MD6756b:MD6756c"
+    "MD6758b:MD6758c"
+)
+
+# Define a function to process each tumor-normal pair
+run_mutect2() {
+    local pair="$1"
+    local tumor_sample="${pair%%:*}"  # Extract tumor sample
+    local normal_sample="${pair##*:}"  # Extract normal sample
+
+    local input_bam_tumor="$input_dir/${tumor_sample}_clip.bam"
+    local input_bam_normal="$input_dir/MOUSE_GRCm38_pulldown_${normal_sample}.dupmarked.bam"
+    local output_vcf="$output_dir/${tumor_sample}_somatic_mutect2.vcf.gz"
+    local f1r2_output="$output_dir/${tumor_sample}_f1r2.tar.gz"
+
+    # Check if the input BAM files exist
+    if [[ ! -f "$input_bam_tumor" ]]; then
+        echo "ERROR: Input tumor BAM file $input_bam_tumor cannot be found."
+        return 1
+    fi
+
+    if [[ ! -f "$input_bam_normal" ]]; then
+        echo "ERROR: Input normal BAM file $input_bam_normal cannot be found."
+        return 1
+    fi
+
+    # Run GATK Mutect2 for the tumor-normal pair
+    gatk Mutect2 \
+        -R "$reference" \
+        -L "$intervals" \
+        -I "$input_bam_tumor" \
+        -I "$input_bam_normal" \
+        -normal "$normal_sample" \
+        --panel-of-normals "$pon_file" \
+        --min-base-quality-score 30 \
+        --max-mnp-distance 0 \
+        --f1r2-tar-gz "$f1r2_output" \
+        -O "$output_vcf"
+
+    # Check if the output VCF was successfully created
+    if [[ $? -ne 0 ]]; then
+        echo "ERROR: GATK Mutect2 failed for tumor sample $tumor_sample."
+    else
+        echo "Successfully processed tumor sample $tumor_sample."
+    fi
+}
+
+# Export variables and functions to be used by parallel
+export -f run_mutect2
+export reference
+export intervals
+export input_dir
+export output_dir
+export pon_file
+
+# Run in parallel
+parallel run_mutect2 ::: "${samples[@]}"
