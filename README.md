@@ -55,7 +55,16 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_mutect2_pass_selected.vcf
 
 /Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Rreb1.png -legend -labels -dpi=300 -U Q3UH06 G1163V A1374V
 ```
+*We repeat the process with the adjacent normal samples*
 
 ## 3. Copy number profile
-
+  ### Copywriter
+  1. First we needed to compute the .bam.bai files for the new BAMs (the ones without adapters).
+     ```bash
+     samtools index -b MD6753a_clip.bam 
+     ```
+  2. Then we create the 'helper' files by using the function preCopywriteR.
+  3. Finally, for the copy number calling we us the function CopywriteR and plotCNA to get the copy number profiles of our samples.
+  
+     
 ## 4. Mutational signatures
