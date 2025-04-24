@@ -37,6 +37,7 @@ mkdir -p "$output_dir"
 
 # Array of tumor and normal sample pairs
 samples=(
+    "MD6752b:MD6752c"
     "MD6753b:MD6753c"
     "MD6754b:MD6754c"
     "MD6755b:MD6755c"
