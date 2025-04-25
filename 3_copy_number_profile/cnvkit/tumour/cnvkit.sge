@@ -30,7 +30,7 @@ module load r/4.2.2
 source activate cnvkit
 
 cnvkit.py batch /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/data/tumours/*.bam --normal /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/data/normals/*.bam \
-    --targets /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered_corrected.bed \
+    --targets /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/Allexon_v2_Covered_annotated_corrected.bed \
     --fasta /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/GRCm38/Mus_musculus.GRCm38.68.dna.toplevel.fa --access /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/access-20kb.mm10_corrected.bed --drop-low-coverage\
     --output-reference my_reference.cnn --output-dir /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/tumour/ \
     --diagram --scatter
