@@ -1,52 +1,53 @@
 # Analysis pipeline for Whole-Exome-Sequencing of lung tumours from mice exposed to E-Cigarette
 
 ## 1. Quality Control
-1. Run fastqc & multiqc (obtained illumina universal adapter warning in 11 samples, all FFPE).
-2. To remove adapters first we got the adapters file from MoCaSeq github webpage (BBDuk-Adapters.fa), after analyzing variants in IGV we got another adapter which we add to this file and also add the Illumina Universal Adapter (AGATCGGAAGAG) that fastqc uses.
-3. Then as we had bam files we clip this sequences so that the tools we use later doesn't take them into account.
-4. Perform fastqc & multiqc after clipping the sequences and there is no warning in adapters anymore but the N content at the end of the sequences got a warning.
-5. Retrieve samtools stats and plots.
-6. Got the reference used for the alignment (Mus_musculus.GRCm38.68.dna.toplevel.fa.gz).
-7. Then we generate a .dict file and a .fai file for fasta reference.
-8. Calculate contamination and concordance with conpair.
+1. Initial quality assessment with FastQC and MultiQC revealed Illumina universal adapter contamination in 11 FFPE samples.
+2. To address this, we compiled an adapter sequence file. This included the BBDuk-Adapters.fa sequences from the MoCaSeq GitHub, an additional adapter identified through IGV analysis, and the Illumina Universal Adapter (AGATCGGAAGAG) reported by FastQC.
+3. Using this adapter list, we clipped adapter sequences from the BAM files to prevent downstream analysis interference.
+4. Post-clipping FastQC and MultiQC analysis confirmed the removal of adapter contamination. However, this revealed a new warning regarding increased N content at the end of the sequences.
+5. We then assessed alignment quality using samtools stats and generated corresponding plots.
+6. The Mus musculus GRCm38.68 reference genome (dna.toplevel.fa.gz) was used for alignment.
+7. For downstream processing, we generated a dictionary (.dict) and index (.fai) file for the reference genome.
+8. Finally, we evaluated contamination and sample concordance using Conpair.
 
 ## 2. Somatic mutational profile
-1. First we get the germline variants from the normal samples using the tumor/only mode of GATK Mutect2.
-2. Then we got the bait coordinate file from Agilent (S32371113_Covered.bed) but in the bed the chromosomes were label as “chr1” and in the reference they were label as “1”, to fix this we remove the “chr” in the bed.
+1. Germline variants were called from normal samples using GATK Mutect2 in tumor-only mode.
+2. The Agilent bait coordinate file (S32371113_Covered.bed) was adapted for our reference genome by removing the "chr" prefix from chromosome labels.
 
 ```bash
 sed 's/chr//g' Allexon_v2_Covered.bed > Allexon_v2_Covered_corrected.bed
 ```
 
-3. To create the GenomicDB we need to prepare a file containing a mapping of sample name to file url in tab delimited format (tab_batch.sample_map).
-4. Create the GenomicDB.
-5. Create the Panel of Normals
-6. Perform the variant calling with mutect2 using a --min-base-quality-score of 30.
-7. To filter the variants we first run the LearnReadOrientationModel function of GATK which gets the maximum likelihood estimates of artifact prior probabilities in the orientation bias mixture model.
-8. Then we download the germline variants of the FVBNJ mice strain to filter this germline variants from our vcf files (FVB_NJ_snps_indels_combined.vcf.gz). We needed to add the population allele frequencies (AF) in the INFO field because this VCF did not have it (FVB_NJ_snps_indels_combined_AF.vcf.gz) and index it.
-9. Now we get the pileup summaries which tabulates pileup metrics for inferring contamination.
-10. After that we calculate the fraction of reads coming from cross-sample contamination with the CalculateContamination function.
-11. We filter the calls with the function FilterMutectCalls using the metrics previously calculated and filter the variants that pass the filtering step.
+3. A tab-delimited sample map file (tab_batch.sample_map) linking sample names to file URLs was prepared.
+4. A GenomicDB was created to facilitate joint genotyping.
+5. A Panel of Normals (PON) was generated to filter recurrent technical artifacts.
+6. Somatic variant calling was performed using Mutect2 with a minimum base quality score of 30.
+7. Strand bias artifacts were obtained using GATK LearnReadOrientationModel.
+8. Germline variants from the FVB/NJ mouse strain (FVB_NJ_snps_indels_combined.vcf.gz) were retrieved for filtering. Population allele frequencies (AF) were added to this VCF, and the file was indexed.
+9. Pileup summaries were generated using GATK to estimate contamination levels.
+10. Cross-sample contamination was quantified using GATK CalculateContamination.
+11. Mutect2 calls were filtered using FilterMutectCalls based on previously calculated metrics.
 
 ```bash
 bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered_mutect2_passed.vcf
 ```
 
-12. Moreover, to decrease the false-positive rate of reported mutations, we use SelectVariants to filter out all indels >10 bp. We apply filters for coverage (>=10x) and supporting reads for the mutation in the tumour sample (at least three, and at least one in each strand to avoid strand bias).
+12. To further reduce false positives, variants were filtered to exclude indels larger than 10 bp and to require a minimum coverage of 10x and at least three supporting reads (with ≥1 on each strand) in the tumor sample.
 
 ```bash
 bcftools filter -i '(FORMAT/AD[0:0] + FORMAT/AD[0:1]) >= 10 && (FORMAT/AD[1:0] + FORMAT/AD[1:1]) >= 10 && FORMAT/AD[0:1] >= 3 && FORMAT/AD[1:1] = 0 && FORMAT/SB[0:2] >= 1 && FORMAT/SB[0:3] >= 1' MD6753a_filtered_mutect2_pass_selected.vcf -Oz -o MD6753a_filtered_bcftools.vcf
 ```
-13. Then we download the VEP cache of our reference genome (GRCm38) a downloadable file containing all transcript models, regulatory features and variant data for a species and annotate our variants using Ensembl VEP.
-14. Now, to identify the driver genes first we get the recurrently mutated genes.
-15. Next, we use dndscv to identify the genes that are under positive selection.
-16. To identify driver genes not identified by dndscv due to the low sample size we filter the variants for mutant allele frequency (>=10%).
+13. The Ensembl VEP cache for the GRCm38 reference genome was downloaded, and variants were annotated using Ensembl VEP.
+14. Recurrently mutated genes were identified to pinpoint potential driver genes.
+15. Genes under positive selection were identified using the dndscv tool.
+16. To capture potential driver genes missed by dndscv due to sample size, we also filtered variants with a mutant allele frequency (MAF) ≥10%.
 
 ```bash
 bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6753a_filtered_bcftools_vep_MAF.vcf
 ```
-17. We make an oncoplot with the top 15 genes identified by dndscv.
-18. Then to see the location of recurrent mutations we make some lollipop plots
+
+17. We generated an oncoplot visualizing the top 15 genes identified by dndscv.
+18. Lollipop plots for some genes were created to illustrate the genomic location of recurrent mutations.
 
 ```bash
 /Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Braf.png -legend -labels -dpi=300 -U P28028 V637E V584E
@@ -55,30 +56,32 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
 
 /Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Rreb1.png -legend -labels -dpi=300 -U Q3UH06 G1163V A1374V
 ```
+
 *We followed the same steps with the adjacent normal samples.*
 
 ## 3. Copy number profile
   ### Copywriter
-  1. First we needed to compute the .bam.bai files for the new BAMs (the ones without adapters).
+  1. Index files (.bam.bai) were computed for the adapter-clipped BAM files. 
      ```bash
      samtools index -b MD6753a_clip.bam 
      ```
-  2. Then we create the 'helper' files by using the function preCopywriteR.
-  3. Finally, for the copy number calling we us the function CopywriteR and plotCNA to get the copy number profiles of our samples.
+  2. Helper files for CopywriteR were generated using the preCopywriteR function.
+  3. Copy number profiles for the samples were determined using the CopywriteR function, and the resulting profiles were visualized using plotCNA.
 
   ### CNVkit
-  1. Apply gene names to the baits BED file using the gene annotations file (refFlat.txt).
+  1. Gene names were added into the bait coordinate BED file using the gene annotations file (refFlat.txt) obtained from the UCSC website.
      ```bash
      wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/database/refFlat.txt.gz
      cnvkit.py target /mnt/Adenina/drobles/mtalavera/mutect2/Allexon_v2_Covered.bed --annotate /mnt/Adenina/drobles/mtalavera/cnvkit/refFlat.txt -o Allexon_v2_Covered_annotated.bed
      sed 's/chr//g' Allexon_v2_Covered_annotated.bed > Allexon_v2_Covered_annotated_corrected.bed
      ```
-  2. Calculate the sequence-accessible coordinates in chromosomes from the given reference genome and remove weird chromosomes (contigs).
+  2. Sequence-accessible regions were calculated across the chromosomes of the reference genome, and weird chromosomes (contigs) were excluded.
      ```bash
      cnvkit.py access /mnt/Adenina/drobles/mtalavera/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa -s 20000 -o access-20kb.mm10.bed
      tail -n 44 access-20kb.mm10.bed
      head -n -44 access-20kb.mm10.bed > access-20kb.mm10_corrected.bed
      ```
-  3. Run the CNVkit pipeline.
+  3. We ran the CNVkit pipeline for copy number variant analysis.
+
      
 ## 4. Mutational signatures
