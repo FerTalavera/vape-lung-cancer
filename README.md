@@ -127,6 +127,6 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      ```
      
   3. We ran the CNVkit pipeline for copy number variant analysis.
-     - [](3_copy_number_profile/cnvkit/tumour/cnvkit.sge)
+     - [cnvkit.sge](3_copy_number_profile/cnvkit/tumour/cnvkit.sge)
 
 ## 4. Mutational signatures
