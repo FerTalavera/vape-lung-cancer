@@ -1,4 +1,4 @@
-# Pipeline for Whole-Exome Sequencing analysis of lung tumors in E-Cigarette–exposed mice
+# Pipeline for Whole-Exome Sequencing analysis of lung tumors from E-Cigarette–exposed mice
 
 ## 1. Quality Control
 1. Initial quality assessment with FastQC and MultiQC revealed Illumina universal adapter contamination in 11 FFPE samples.
