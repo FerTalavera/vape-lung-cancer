@@ -55,7 +55,7 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
 
 /Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Rreb1.png -legend -labels -dpi=300 -U Q3UH06 G1163V A1374V
 ```
-*We repeated these steps with the adjacent normal samples*
+*We followed the same steps with the adjacent normal samples.*
 
 ## 3. Copy number profile
   ### Copywriter
