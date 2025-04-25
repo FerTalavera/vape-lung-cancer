@@ -11,5 +11,5 @@ markers <- data.frame(paste(segment.CNA.object$data$chrom, segment.CNA.object$da
                             sep = ":"),
                       segment.CNA.object$data$chrom, segment.CNA.object$data$maploc)
 colnames(markers) <- c("Marker Name", "Chromosome", "Marker Position")
-write.table(markers, file = "/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/input/markers.tsv", quote = FALSE, row.names = FALSE,
+write.table(markers, file = "/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/input/MD6753_markers.tsv", quote = FALSE, row.names = FALSE,
             sep = "\t")
