@@ -43,7 +43,7 @@ bcftools filter -i '(FORMAT/AD[0:0] + FORMAT/AD[0:1]) >= 10 && (FORMAT/AD[1:0] +
 16. To identify driver genes not identified by dndscv due to the low sample size we filter the variants for mutant allele frequency (>=10%).
 
 ```bash
-bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_mutect2_pass_selected.vcf
+bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools.vcf
 ```
 17. We make an oncoplot with the top 15 genes identified by dndscv.
 18. Then to see the location of recurrent mutations we make some lollipop plots
