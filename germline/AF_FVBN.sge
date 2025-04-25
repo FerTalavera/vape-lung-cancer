@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N AF_FVBN
+#
+# Send an email after the job has finished
+#$ -m bes
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=150G
+#
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load bcftools
+module load htslib
+#
+# Write your commands in the next line:
+bcftools +fill-tags FVB_NJ_snps_indels_combined.vcf.gz -Oz -o FVB_NJ_snps_indels_combined_AF.vcf.gz -- -t AF
+tabix -p vcf /mnt/atgc-d1/drobles/ftalavera/germline/FVB_NJ_snps_indels_combined_AF.vcf.gz 
