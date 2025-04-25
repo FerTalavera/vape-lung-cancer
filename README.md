@@ -4,13 +4,26 @@
 1. Initial quality assessment with FastQC and MultiQC revealed Illumina universal adapter contamination in 11 FFPE samples.
    - [fastqc.sge](1_quality_control/1_fastqc/fastqc.sge)
    - [multiqc.sge](1_quality_control/1_fastqc/multiqc.sge)
-3. To address this, we compiled an adapter sequence file. This included the BBDuk-Adapters.fa sequences from the MoCaSeq GitHub, an additional adapter identified through IGV analysis, and the Illumina Universal Adapter (AGATCGGAAGAG) reported by FastQC.
-4. Using this adapter list, we clipped adapter sequences from the BAM files to prevent downstream analysis interference.
-5. Post-clipping FastQC and MultiQC analysis confirmed the removal of adapter contamination. However, this revealed a new warning regarding increased N content at the end of the sequences.
-6. We then assessed alignment quality using samtools stats and generated corresponding plots.
-7. The Mus musculus GRCm38.68 reference genome (dna.toplevel.fa.gz) was used for alignment.
-8. For downstream processing, we generated a dictionary (.dict) and index (.fai) file for the reference genome.
-9. Finally, we evaluated contamination and sample concordance using Conpair.
+2. To address this, we compiled an adapter sequence file. This included the [BBDuk-Adapters.fa](1_quality_control/1_fastqc/adapters/BBDuk-Adapters.fa) sequences from the MoCaSeq GitHub, an additional adapter identified through IGV analysis, and the Illumina Universal Adapter (AGATCGGAAGAG) reported by FastQC.
+3. Using this adapter list, we clipped adapter sequences from the BAM files to prevent downstream analysis interference.
+  - [clipreads_all.sge](1_quality_control/1_fastqc/adapters/clipreads_all.sge)
+4. Post-clipping FastQC and MultiQC analysis confirmed the removal of adapter contamination. However, this revealed a new warning regarding increased N content at the end of the sequences.
+   - [fastqc_adapters.sge](1_quality_control/1_fastqc/adapters/fastqc_adapters.sge)
+   - [multiqc_adapters.sge](1_quality_control/1_fastqc/adapters/multiqc_adapters.sge)
+5. We then assessed alignment quality using samtools stats and generated corresponding plots.
+   - [samtools_stats.sge](1_quality_control/2_samtools_stats/samtools_stats.sge)
+   - [samtools_stats_wo_adapters.sge](1_quality_control/2_samtools_stats/samtools_stats_wo_adapters.sge)
+   - [plot_bamstats.sge](1_quality_control/3_plot_bamstats/plot_bamstats.sge)
+   - [plot_bamstats_wo_adapters.sge](1_quality_control/3_plot_bamstats/plot_bamstats_wo_adapters.sge)
+6. We downloaded the Mus musculus GRCm38 reference genome used for alignment.
+   - [GRCm38.sge](reference/GRCm38.sge)
+7. For downstream processing, we generated a dictionary (.dict) and index (.fai) file for the reference genome.
+   - [dict.sge](reference/dict.sge)
+   - [faidx.sge](reference/faidx.sge)
+8. Finally, we evaluated contamination and sample concordance using Conpair.
+   - [pileup.sge](1_quality_control/4_conpair/1_pileup/pileup.sge)
+   - [concordance.sge](1_quality_control/4_conpair/2_concordance/concordance.sge)
+   - [contamination.sge](1_quality_control/4_conpair/3_contamination/contamination.sge)
 
 ## 2. Somatic mutational profile
 1. Germline variants were called from normal samples using GATK Mutect2 in tumor-only mode.
