@@ -26,4 +26,4 @@ module load gcc/5.1.0
 module load r/3.6.1 
 #
 # Write your commands in the next line:
-Rscript /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/input/input_gistic2.R
+Rscript /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/input/input_gistic2_53.R
