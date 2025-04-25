@@ -1,7 +1,7 @@
 # Analysis pipeline for Whole-Exome-Sequencing of lung tumours from mice exposed to E-Cigarette
 
 ## 1. Quality Control
-1. Initial quality assessment with FastQC and MultiQC revealed Illumina universal adapter contamination in 11 FFPE samples.
+1. Initial quality assessment with FastQC and MultiQC revealed Illumina universal adapter contamination in 11 FFPE samples. [Contribution guidelines for this project](docs/CONTRIBUTING.md)
 2. To address this, we compiled an adapter sequence file. This included the BBDuk-Adapters.fa sequences from the MoCaSeq GitHub, an additional adapter identified through IGV analysis, and the Illumina Universal Adapter (AGATCGGAAGAG) reported by FastQC.
 3. Using this adapter list, we clipped adapter sequences from the BAM files to prevent downstream analysis interference.
 4. Post-clipping FastQC and MultiQC analysis confirmed the removal of adapter contamination. However, this revealed a new warning regarding increased N content at the end of the sequences.
