@@ -55,7 +55,7 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
 
 /Users/fernandatalavera/Downloads/lollipops_1.7.1_darwin_all/lollipops -o=Rreb1.png -legend -labels -dpi=300 -U Q3UH06 G1163V A1374V
 ```
-*We repeat the process with the adjacent normal samples*
+*We repeat these steps with the adjacent normal samples*
 
 ## 3. Copy number profile
   ### Copywriter
@@ -65,6 +65,20 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      ```
   2. Then we create the 'helper' files by using the function preCopywriteR.
   3. Finally, for the copy number calling we us the function CopywriteR and plotCNA to get the copy number profiles of our samples.
-  
+
+  ### CNVkit
+  1. Apply gene names to the baits BED file using the gene annotations file (refFlat.txt).
+     ```bash
+     wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/database/refFlat.txt.gz
+     cnvkit.py target /mnt/Adenina/drobles/mtalavera/mutect2/Allexon_v2_Covered.bed --annotate /mnt/Adenina/drobles/mtalavera/cnvkit/refFlat.txt -o Allexon_v2_Covered_annotated.bed
+     sed 's/chr//g' Allexon_v2_Covered_annotated.bed > Allexon_v2_Covered_annotated_corrected.bed
+     ```
+  2. Calculate the sequence-accessible coordinates in chromosomes from the given reference genome.
+     ```bash
+     cnvkit.py access /mnt/Adenina/drobles/mtalavera/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa -s 20000 -o access-20kb.mm10.bed
+     tail -n 44 access-20kb.mm10.bed
+     head -n -44 access-20kb.mm10.bed > access-20kb.mm10_corrected.bed
+     ```
+  3. Run the CNVkit pipeline.
      
 ## 4. Mutational signatures
