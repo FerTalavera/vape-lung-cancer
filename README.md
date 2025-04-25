@@ -114,14 +114,14 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
 
      ```bash
      wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/database/refFlat.txt.gz
-     cnvkit.py target /mnt/Adenina/drobles/mtalavera/mutect2/Allexon_v2_Covered.bed --annotate /mnt/Adenina/drobles/mtalavera/cnvkit/refFlat.txt -o Allexon_v2_Covered_annotated.bed
+     cnvkit.py target /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered.bed --annotate /mnt/Adenina/drobles/mtalavera/cnvkit/refFlat.txt -o Allexon_v2_Covered_annotated.bed
      sed 's/chr//g' Allexon_v2_Covered_annotated.bed > Allexon_v2_Covered_annotated_corrected.bed
      ```
      
   2. Sequence-accessible regions were calculated across the chromosomes of the reference genome, and weird chromosomes (contigs) were excluded.
 
      ```bash
-     cnvkit.py access /mnt/Adenina/drobles/mtalavera/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa -s 20000 -o access-20kb.mm10.bed
+     cnvkit.py access /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/GRCm38/Mus_musculus.GRCm38.68.dna.toplevel.fa -s 20000 -o access-20kb.mm10.bed
      tail -n 44 access-20kb.mm10.bed
      head -n -44 access-20kb.mm10.bed > access-20kb.mm10_corrected.bed
      ```
