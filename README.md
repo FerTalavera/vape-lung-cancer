@@ -73,7 +73,7 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      cnvkit.py target /mnt/Adenina/drobles/mtalavera/mutect2/Allexon_v2_Covered.bed --annotate /mnt/Adenina/drobles/mtalavera/cnvkit/refFlat.txt -o Allexon_v2_Covered_annotated.bed
      sed 's/chr//g' Allexon_v2_Covered_annotated.bed > Allexon_v2_Covered_annotated_corrected.bed
      ```
-  2. Calculate the sequence-accessible coordinates in chromosomes from the given reference genome.
+  2. Calculate the sequence-accessible coordinates in chromosomes from the given reference genome and remove weird chromosomes (contigs).
      ```bash
      cnvkit.py access /mnt/Adenina/drobles/mtalavera/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa -s 20000 -o access-20kb.mm10.bed
      tail -n 44 access-20kb.mm10.bed
