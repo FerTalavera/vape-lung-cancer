@@ -110,7 +110,7 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      - [copywriter.R](3_copy_number_profile/copywriter/copywriter.R)
      - [copywriter.sge](3_copy_number_profile/copywriter/copywriter.sge)
 
-   #### Gistic2
+   ### Gistic2
     1. The input for Gistic2 was prepared by formatting the results obtained with the CopywriteR tool. 
        - [input_gistic2.R](3_copy_number_profile/copywriter/gistic2/input_gistic2.R)
        - [input_gistic2.sge](3_copy_number_profile/copywriter/gistic2/input_gistic2.sge)
