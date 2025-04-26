@@ -54,7 +54,7 @@ sed 's/chr//g' Allexon_v2_Covered.bed > Allexon_v2_Covered_corrected.bed
     - [fmc.sge](2_somatic_mutational_profile/5_filterd_calls/tumour/fmc.sge)
 
 ```bash
-bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered_mutect2_passed.vcf
+bcftools view -i 'FILTER="PASS"' MD6753a_filtered_mutect2.vcf > MD6753a_filtered_mutect2_pass.vcf
 ```
 
 12. To further reduce false positives, variants were filtered to exclude indels larger than 10 bp and to require a minimum coverage of 10x and at least three supporting reads (with ≥1 on each strand) in the tumor sample.
