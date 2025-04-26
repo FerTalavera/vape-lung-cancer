@@ -185,9 +185,10 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
    genInstall.install('mm10', bash=True)
    ```
 
+   3. We generate mutational matrices for our samples using the [SigProfilerMatrixGenerator function](4_mutational_signatures/run_sigprofilermatrix.py).
+   4. De novo mutational signatures were extracted with the [SigProfilerExtractor function](4_mutational_signatures/run_sigprofilerextractor.py).
+
    ```bash
    deactivate
    ```
-   3. We generate mutational matrices for our samples using the [SigProfilerMatrixGenerator function](4_mutational_signatures/run_sigprofilermatrix.py).
-   4. De novo mutational signatures were extracted with the [SigProfilerExtractor function](4_mutational_signatures/run_sigprofilerextractor.py).
 
