@@ -140,7 +140,9 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
 
      ```bash
      wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/database/refFlat.txt.gz
+
      cnvkit.py target /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/agilent_bait/Allexon_v2_Covered.bed --annotate /mnt/Adenina/drobles/mtalavera/cnvkit/refFlat.txt -o Allexon_v2_Covered_annotated.bed
+
      sed 's/chr//g' Allexon_v2_Covered_annotated.bed > Allexon_v2_Covered_annotated_corrected.bed
      ```
      
@@ -156,9 +158,12 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      - [cnvkit.sge](3_copy_number_profile/cnvkit/cnvkit.sge)
 
   #### Gistic2
+  
   ```bash
   module load anaconda3/2021.05
+
   source activate cnvkit
+
   cnvkit.py export seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/tumour/*.cns -o Samples.seg
 
   module load gistic2/2.0.23
