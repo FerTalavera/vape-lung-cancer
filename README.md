@@ -156,15 +156,15 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      - [cnvkit.sge](3_copy_number_profile/cnvkit/cnvkit.sge)
 
   #### Gistic2
-     ```bash
-     module load anaconda3/2021.05
-     source activate cnvkit
-     cnvkit.py export seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/tumour/*.cns -o Samples.seg
+  ```bash
+  module load anaconda3/2021.05
+  source activate cnvkit
+  cnvkit.py export seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/tumour/*.cns -o Samples.seg
 
-     module load gistic2/2.0.23
+  module load gistic2/2.0.23
      
-     gistic2 -b /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/gistic2/results/ -seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/gistic2/input/Samples.seg -refgene /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/GRCm38.Gistic_reference.mat -maxseg 3000 -conf 0.90
-     ```
+  gistic2 -b /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/gistic2/results/ -seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/gistic2/input/Samples.seg -refgene /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/GRCm38.Gistic_reference.mat -maxseg 3000 -conf 0.90
+  ```
 
 ## 4. Mutational signatures
 
