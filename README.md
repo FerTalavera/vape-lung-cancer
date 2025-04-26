@@ -104,10 +104,11 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      ```
      
   2. Helper files for CopywriteR were generated using the preCopywriteR function.
-     - [precopywriter.R](3_copy_number_profile/copywriter/tumour/precopywriter.R)
+     - [precopywriter.R](3_copy_number_profile/copywriter/precopywriter.R)
+     - [precopywriter.sge](3_copy_number_profile/copywriter/precopywriter.sge)
   3. Copy number profiles for the samples were determined using the CopywriteR function, and the resulting profiles were visualized using plotCNA.
-     - [copywriter.R](3_copy_number_profile/copywriter/tumour/copywriter.R)
-     - [copywriter.sge](3_copy_number_profile/copywriter/tumour/copywriter.sge)
+     - [copywriter.R](3_copy_number_profile/copywriter/copywriter.R)
+     - [copywriter.sge](3_copy_number_profile/copywriter/copywriter.sge)
 
   ### CNVkit
   1. Gene names were added into the bait coordinate BED file using the gene annotations file (refFlat.txt) obtained from the UCSC website.
@@ -127,7 +128,7 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      ```
      
   3. We ran the CNVkit pipeline for copy number variant analysis.
-     - [cnvkit.sge](3_copy_number_profile/cnvkit/tumour/cnvkit.sge)
+     - [cnvkit.sge](3_copy_number_profile/cnvkit/cnvkit.sge)
 
 ## 4. Mutational signatures
 
