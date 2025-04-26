@@ -110,6 +110,13 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      - [copywriter.R](3_copy_number_profile/copywriter/copywriter.R)
      - [copywriter.sge](3_copy_number_profile/copywriter/copywriter.sge)
 
+   #### Gistic2
+    1. The input for Gistic2 was prepared with the code in the [gistic2 folder](3_copy_number_profile/copywriter/gistic2), and tide it up as follows:
+    
+    ```bash
+    awk '{$1="MD6753a"; print}' OFS='\t' MD6753_segmentation_values.tsv > MD6753_segmentation_values_id.tsv
+    ```
+    
   ### CNVkit
   1. Gene names were added into the bait coordinate BED file using the gene annotations file (refFlat.txt) obtained from the UCSC website.
 
