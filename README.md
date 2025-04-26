@@ -170,4 +170,24 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
        print;
    }' merged_mafs.maf > sigprofiler.maf
    ```
+   2. We installed the SigProfilerMatrixGenerator and SigProfilerExtractor functions, and the reference genome we were going to use mm10.
+      
+   ```bash
+   python3 -m venv myenv
+   source myenv/bin/activate
+   python3 -m pip install SigProfilerMatrixGenerator
+   python3 -m pip install SigProfilerExtractor
+   python3
+   ```
+
+   ```python
+   from SigProfilerMatrixGenerator import install as genInstall
+   genInstall.install('mm10', bash=True)
+   ```
+
+   ```bash
+   deactivate
+   ```
+   3. We generate mutational matrices for our samples using the [SigProfilerMatrixGenerator function](4_mutational_signatures/run_sigprofilermatrix.py).
+   4. De novo mutational signatures were extracted with the [SigProfilerExtractor function](4_mutational_signatures/run_sigprofilerextractor.py)
 
