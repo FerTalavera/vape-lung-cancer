@@ -110,15 +110,31 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      - [copywriter.R](3_copy_number_profile/copywriter/copywriter.R)
      - [copywriter.sge](3_copy_number_profile/copywriter/copywriter.sge)
 
-  ### Gistic2
+  #### Gistic2
   1. The input for Gistic2 was prepared by formatting the results obtained with the CopywriteR tool. 
      - [input_gistic2.R](3_copy_number_profile/copywriter/gistic2/input_gistic2.R)
      - [input_gistic2.sge](3_copy_number_profile/copywriter/gistic2/input_gistic2.sge)
     
      ```bash
-     awk '{$1="MD6753a"; print}' OFS='\t' MD6753_segmentation_values.tsv > MD6753_segmentation_values_id.tsv
+     awk 'NR==1 {$1="Sample"} NR>1 {$1="MD6758a"} {print}' OFS='\t' MD6758_segmentation_values.tsv > MD6758_segmentation_values_id.tsv
+     tail -n +2 MD6753_segmentation_values_id.tsv > temp_MD6753_segmentation_values_id.tsv
+     cat temp_MD6753_segmentation_values_id.tsv temp_MD6754_segmentation_values_id.tsv temp_MD6755_segmentation_values_id.tsv temp_MD6756_segmentation_values_id.tsv temp_MD6758_segmentation_values_id.tsv > all.Copywriter.segmentation_values.tsv
+
+     awk -F'\t' '$2 != 20 && $2 != 21' all.Copywriter.segmentation_values.tsv > all.Copywriter.segmentation_values_no_sex_chrom.tsv
+     awk -F'\t' '$2 != 20 && $2 != 21' markers.tsv > markers_no_sex_chrom.tsv
      ```
-    
+  2. The Gistic2 GRCm38 reference genome was obtained through the github MoCaSeq repository.
+     
+     ```bash
+     wget -c https://github.com/roland-rad-lab/MoCaSeq/tree/master/data/GRCm38.Gistic_reference.mat
+     ```
+
+     ```bash
+     module load gistic2/2.0.23
+     
+     gistic2 -b /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/results/ -seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/input/all.Copywriter.segmentation_values_no_sex_chrom.tsv -mk /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/input/markers_no_sex_chrom.tsv  -refgene /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/copywriter/tumour/gistic2/GRCm38.Gistic_reference.mat -maxseg 3000 -conf 0.90
+     ```
+     
   ### CNVkit
   1. Gene names were added into the bait coordinate BED file using the gene annotations file (refFlat.txt) obtained from the UCSC website.
 
@@ -138,6 +154,13 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
      
   3. We ran the CNVkit pipeline for copy number variant analysis.
      - [cnvkit.sge](3_copy_number_profile/cnvkit/cnvkit.sge)
+
+  #### Gistic2
+     ```bash
+     module load anaconda3/2021.05
+     source activate cnvkit
+     cnvkit.py export seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/tumour/*.cns -o Samples.seg
+     ```
 
 ## 4. Mutational signatures
 
