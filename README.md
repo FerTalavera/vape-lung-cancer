@@ -164,7 +164,7 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
 
   source activate cnvkit
 
-  cnvkit.py export seg /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/3_copy_number_profile/cnvkit/tumour/*.cns -o Samples.seg
+  cnvkit.py export seg *.cns -o Samples.seg
 
   module load gistic2/2.0.23
      
@@ -233,4 +233,18 @@ bcftools filter -i 'FORMAT/AF>=0.1' MD6753a_filtered_bcftools_vep.vcf -Oz -o MD6
    ```bash
    deactivate
    ```
+## 5. Adjacent normal samples
+
+```bash
+module load bcftools
+
+bcftools annotate --set-id 'MD6753b' /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/2_somatic_mutational_profile/6_annotation/adjacent/MD6753b_filtered_bcftools_vep.vcf -o MD6753b_filtered_bcftools_vep_id.vcf
+
+module load htslib
+
+bgzip MD6753b_filtered_bcftools_vep_id.vcf
+tabix -p vcf MD6753b_filtered_bcftools_vep_id.vcf.gz
+
+bcftools isec -p . MD6753a_filtered_bcftools_vep_id.vcf.gz MD6753b_filtered_bcftools_vep_id.vcf.gz
+```
 
