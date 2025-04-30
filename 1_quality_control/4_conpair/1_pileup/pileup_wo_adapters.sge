@@ -32,25 +32,17 @@ markers=/cm/shared/apps/conpair/0.2/data/markers/SureSelect_Mouse_All_Exon_V1_GR
 
 # List of BAM files to process
 bam_files=(
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6752b/mapped_sample/MOUSE_GRCm38_pulldown_MD6752b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6752c/mapped_sample/MOUSE_GRCm38_pulldown_MD6752c.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6753a/mapped_sample/MOUSE_GRCm38_pulldown_MD6753a.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6753b/mapped_sample/MOUSE_GRCm38_pulldown_MD6753b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6753c/mapped_sample/MOUSE_GRCm38_pulldown_MD6753c.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6754a/mapped_sample/MOUSE_GRCm38_pulldown_MD6754a.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6754b/mapped_sample/MOUSE_GRCm38_pulldown_MD6754b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6754c/mapped_sample/MOUSE_GRCm38_pulldown_MD6754c.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6755a/mapped_sample/MOUSE_GRCm38_pulldown_MD6755a.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6755b/mapped_sample/MOUSE_GRCm38_pulldown_MD6755b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6755c/mapped_sample/MOUSE_GRCm38_pulldown_MD6755c.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6756a/mapped_sample/MOUSE_GRCm38_pulldown_MD6756a.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6756b/mapped_sample/MOUSE_GRCm38_pulldown_MD6756b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6756c/mapped_sample/MOUSE_GRCm38_pulldown_MD6756c.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6757b/mapped_sample/MOUSE_GRCm38_pulldown_MD6757b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6758a/mapped_sample/MOUSE_GRCm38_pulldown_MD6758a.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6758b/mapped_sample/MOUSE_GRCm38_pulldown_MD6758b.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6758c/mapped_sample/MOUSE_GRCm38_pulldown_MD6758c.dupmarked.bam
-    /mnt/Adenina/drobles/data/smoking_mice/PDexport/2499_MD6760c/mapped_sample/MOUSE_GRCm38_pulldown_MD6760c.dupmarked.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6752b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6753a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6753b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6754a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6754b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6755a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6755b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6756a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6756b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6758a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6758b_clip.bam
 )
 
 # Output directory
