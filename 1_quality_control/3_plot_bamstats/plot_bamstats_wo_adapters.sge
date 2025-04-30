@@ -25,17 +25,17 @@ module load samtools/1.9
 #
 # List of stats files to process
 stats_files=(
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6752b_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753a_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753b_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754a_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754b_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755a_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755b_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756a_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756b_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758a_clip.stats
-    /mnt/Adenina/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758b_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6752b_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753a_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6753b_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754a_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6754b_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755a_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6755b_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756a_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6756b_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758a_clip.stats
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/2_samtools_stats/MD6758b_clip.stats
 )
 
 # Process each stats file
