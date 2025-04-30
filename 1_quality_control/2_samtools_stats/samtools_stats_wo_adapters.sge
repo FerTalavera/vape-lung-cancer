@@ -25,17 +25,17 @@ module load samtools/1.9
 #
 # List of BAM files to process
 bam_files=(
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6752b_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6753a_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6753b_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6754a_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6754b_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6755a_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6755b_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6756a_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6756b_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6758a_clip.bam
-    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/soft_clipping/MD6758b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6752b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6753a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6753b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6754a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6754b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6755a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6755b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6756a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6756b_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6758a_clip.bam
+    /mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/data/MD6758b_clip.bam
 )
 
 # Process each BAM file
