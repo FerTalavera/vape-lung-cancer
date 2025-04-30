@@ -27,7 +27,7 @@ module load conpair/0.2
 module load gatk/3.3.0
 #
 # Define the reference and markers
-reference=/mnt/atgc-d1/drobles/ftalavera/vaping_lung_cancer/somatic_profile/reference/Mus_musculus.GRCm38.68.dna.toplevel.fa
+reference=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/reference/GRCm38/Mus_musculus.GRCm38.68.dna.toplevel.fa
 markers=/cm/shared/apps/conpair/0.2/data/markers/SureSelect_Mouse_All_Exon_V1_GRCm38_markers_MAF_0.4_LD_0.8.bed
 
 # List of BAM files to process
