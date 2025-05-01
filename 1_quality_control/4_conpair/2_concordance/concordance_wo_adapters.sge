@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# Use Current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j n
+#
+# Run job through bash shell
+#$ -S /bin/bash
+#
+# Your job name
+#$ -N conpair_concordance
+#
+# Send an email after the job has finished
+#$ -m e
+#$ -M fer_talavera@comunidad.unam.mx
+#$ -l vf=20G
+#
+# If modules are needed, source modules environment (Do not delete the next line):
+. /etc/profile.d/modules.sh
+#
+# Add any modules you might require:
+module load gcc/5.1.0
+module load conpair/0.2
+module load gatk/3.3.0
+#
+# Define the markers file
+markers=/cm/shared/apps/conpair/0.2/data/markers/SureSelect_Mouse_All_Exon_V1_GRCm38_markers_MAF_0.4_LD_0.8.txt
+
+# Define the pileup directory and output directory
+pileup_dir=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/4_conpair/1_pileup
+output_dir=/mnt/atgc-d1/drobles/ftalavera/vape_lung_cancer/1_quality_control/4_conpair/2_concordance
+
+# Create the output directory if it doesn't exist
+mkdir -p "$output_dir"
+
+# List of sample pairs for concordance verification
+declare -A sample_pairs=(
+    [MD6753a]=MD6753b
+    [MD6753a]=MD6753c
+    [MD6754a]=MD6754b
+    [MD6754a]=MD6754c
+    [MD6755a]=MD6755b
+    [MD6755a]=MD6755c
+    [MD6756a]=MD6756b
+    [MD6756a]=MD6756c
+    [MD6758a]=MD6756b
+    [MD6758a]=MD6756c
+)
+
+# Minimum mapping quality
+min_mapping_quality=30
+
+# Process each pair of samples
+for tumor_sample in "${!sample_pairs[@]}"; do
+    normal_sample=${sample_pairs[$tumor_sample]}
+    
+    # Construct file paths
+    tumor_pileup="$pileup_dir/${tumor_sample}_clip_pileup.txt"
+    normal_pileup="$pileup_dir/MOUSE_GRCm38_pulldown_${normal_sample}_pileup.txt"
+    outfile="$output_dir/${tumor_sample}${normal_sample}_concordance.txt"
+    
+    # Check if the input files exist
+    if [[ ! -f "$tumor_pileup" ]]; then
+        echo "ERROR: Tumor file $tumor_pileup cannot be found."
+        continue
+    fi
+    if [[ ! -f "$normal_pileup" ]]; then
+        echo "ERROR: Normal file $normal_pileup cannot be found."
+        continue
+    fi
+    
+    # Run verify_concordance.py for each pair
+    verify_concordance.py --markers "$markers" -T "$tumor_pileup" -N "$normal_pileup" --outfile "$outfile" --min_mapping_quality "$min_mapping_quality"
+done
