@@ -37,16 +37,16 @@ mkdir -p "$output_dir"
 
 # List of sample pairs for concordance verification
 declare -A sample_pairs=(
-    [MD6753a]=MD6753b
     [MD6753a]=MD6753c
-    [MD6754a]=MD6754b
+    [MD6753b]=MD6753c
     [MD6754a]=MD6754c
-    [MD6755a]=MD6755b
+    [MD6754b]=MD6754c
     [MD6755a]=MD6755c
-    [MD6756a]=MD6756b
+    [MD6755b]=MD6755c
     [MD6756a]=MD6756c
-    [MD6758a]=MD6756b
+    [MD6756b]=MD6756c
     [MD6758a]=MD6756c
+    [MD6758b]=MD6756c
 )
 
 # Minimum mapping quality
@@ -59,7 +59,7 @@ for tumor_sample in "${!sample_pairs[@]}"; do
     # Construct file paths
     tumor_pileup="$pileup_dir/${tumor_sample}_clip_pileup.txt"
     normal_pileup="$pileup_dir/MOUSE_GRCm38_pulldown_${normal_sample}_pileup.txt"
-    outfile="$output_dir/${tumor_sample}${normal_sample}_concordance.txt"
+    outfile="$output_dir/${tumor_sample}${normal_sample}_concordance_wo_adapters.txt"
     
     # Check if the input files exist
     if [[ ! -f "$tumor_pileup" ]]; then
